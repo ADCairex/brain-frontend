@@ -33,4 +33,4 @@ jobs:
           tags: ${{ env.IMAGE }}:latest
           # VITE_API_URL se hornea en el bundle durante el build
           build-args: |
-            VITE_API_URL=http://135.125.53.95:8000
+            VITE_API_URL=https://api.cairex-brain.com
