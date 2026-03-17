@@ -1,0 +1,17 @@
+import react from '@vitejs/plugin-react'
+import path from 'path'
+import { defineConfig } from 'vite'
+
+// https://vite.dev/config/
+export default defineConfig({
+  plugins: [react()],
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src'),
+      '@finance': path.resolve(__dirname, './src/modules/finance'),
+      '@auth': path.resolve(__dirname, './src/modules/auth'),
+      '@shared': path.resolve(__dirname, './src/shared'),
+      '@shell': path.resolve(__dirname, './src/shell'),
+    },
+  },
+});
