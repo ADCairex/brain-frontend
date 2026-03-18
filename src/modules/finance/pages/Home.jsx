@@ -198,7 +198,7 @@ export default function Finance() {
                                 <Wallet className="w-5 h-5 text-white" aria-hidden="true" />
                             </div>
                             <div>
-                                <h1 className="font-bold text-slate-900 dark:text-white">Hola rafa</h1>
+                                <h1 className="font-bold text-slate-900 dark:text-white">Finanzas</h1>
                                 <p className="text-xs text-slate-500 dark:text-slate-300">{currentMonth}</p>
                             </div>
                         </div>
