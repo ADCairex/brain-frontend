@@ -67,7 +67,7 @@ function AccountRow({ account, onEdit, onDelete, deleting }) {
     );
 }
 
-function AccountForm({ initial, onSave, onCancel, saving }) {
+function AccountForm({ initial = null, onSave, onCancel, saving }) {
     const [name, setName] = useState(initial?.name ?? '');
     const [balance, setBalance] = useState(initial?.initial_balance != null ? String(initial.initial_balance) : '');
     const [error, setError] = useState('');
@@ -169,7 +169,7 @@ function AssetRow({ asset, accounts, onEdit, onDelete, deleting }) {
     );
 }
 
-function AssetForm({ initial, accounts, onSave, onCancel, saving }) {
+function AssetForm({ initial = null, accounts, onSave, onCancel, saving }) {
     const [name, setName] = useState(initial?.name ?? '');
     const [value, setValue] = useState(initial?.value != null ? String(initial.value) : '');
     const [category, setCategory] = useState(initial?.category ?? 'otro');

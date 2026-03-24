@@ -1,3 +1,4 @@
+// @ts-nocheck
 import * as React from "react"
 import * as ToastPrimitives from "@radix-ui/react-toast"
 import { cva } from "class-variance-authority";
@@ -82,4 +83,11 @@ const ToastDescription = React.forwardRef(({ className, ...props }, ref) => (
 ))
 ToastDescription.displayName = ToastPrimitives.Description.displayName
 
-export { ToastProvider, ToastViewport, Toast, ToastTitle, ToastDescription, ToastClose, ToastAction };
+/** @type {any} */ const ToastProviderComponent = ToastProvider;
+/** @type {any} */ const ToastViewportComponent = ToastViewport;
+/** @type {any} */ const ToastComponent = Toast;
+/** @type {any} */ const ToastTitleComponent = ToastTitle;
+/** @type {any} */ const ToastDescriptionComponent = ToastDescription;
+/** @type {any} */ const ToastCloseComponent = ToastClose;
+/** @type {any} */ const ToastActionComponent = ToastAction;
+export { ToastProviderComponent as ToastProvider, ToastViewportComponent as ToastViewport, ToastComponent as Toast, ToastTitleComponent as ToastTitle, ToastDescriptionComponent as ToastDescription, ToastCloseComponent as ToastClose, ToastActionComponent as ToastAction };

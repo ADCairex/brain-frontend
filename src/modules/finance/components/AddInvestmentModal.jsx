@@ -25,7 +25,7 @@ export default function AddInvestmentModal({ open, onClose, onSaved, accounts = 
     const [notes, setNotes] = useState('');
     const [saving, setSaving] = useState(false);
     const [error, setError] = useState('');
-    const [fieldErrors, setFieldErrors] = useState({});
+    const [fieldErrors, setFieldErrors] = useState(/** @type {{ [key: string]: string }} */({}));
 
     // Pre-fill symbol & name when adding a purchase to an existing asset
     useEffect(() => {
@@ -58,7 +58,7 @@ export default function AddInvestmentModal({ open, onClose, onSaved, accounts = 
 
     const handleSave = async () => {
         setError('');
-        const errs = {};
+        const errs = /** @type {{ [key: string]: string }} */({});
         if (!symbol.trim()) errs.symbol = 'Ingresa el símbolo (ej: AAPL)';
         if (!assetName.trim()) errs.assetName = 'Ingresa el nombre del activo';
         if (!totalPaid || parseFloat(totalPaid) <= 0) errs.totalPaid = 'Ingresa el importe pagado';

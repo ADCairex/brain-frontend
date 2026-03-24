@@ -35,7 +35,7 @@ export default function AddExpenseModal({ open, onClose, onSaved, accounts = /**
     const [notes, setNotes] = useState('');
     const [saving, setSaving] = useState(false);
     const [error, setError] = useState('');
-    const [fieldErrors, setFieldErrors] = useState({});
+    const [fieldErrors, setFieldErrors] = useState(/** @type {{ [key: string]: string }} */({}));
 
     const resetForm = () => {
         setIsIncome(false);
@@ -51,7 +51,7 @@ export default function AddExpenseModal({ open, onClose, onSaved, accounts = /**
 
     const handleSave = async () => {
         setError('');
-        const errs = {};
+        const errs = /** @type {{ [key: string]: string }} */({});
         if (!amount || parseFloat(amount) <= 0) errs.amount = 'Ingresa un monto válido';
         if (!description.trim()) errs.description = 'Ingresa una descripción';
         if (!isIncome && !category) errs.category = 'Selecciona una categoría';
