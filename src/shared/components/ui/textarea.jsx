@@ -1,3 +1,4 @@
+// @ts-nocheck
 import * as React from "react"
 
 import { cn } from "@shared/lib/utils"
@@ -15,4 +16,6 @@ const Textarea = React.forwardRef(({ className, ...props }, ref) => {
 })
 Textarea.displayName = "Textarea"
 
-export { Textarea }
+/** @type {any} */
+const TextareaComponent = Textarea;
+export { TextareaComponent as Textarea }

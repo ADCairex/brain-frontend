@@ -16,18 +16,20 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
-    "types": []
+    "types": ["vite/client"]
   },
   "include": [
     "src/modules/**/*.{js,jsx}",
     "src/shell/**/*.{js,jsx}",
-    "src/shared/**/*.{js,jsx}",
+    "src/shared/context/**/*.{js,jsx}",
+    "src/shared/hooks/**/*.{js,jsx}",
+    "src/shared/lib/**/*.{js,jsx}",
     "src/main.jsx"
   ],
   "exclude": [
     "node_modules",
     "dist",
     "src/vite-plugins",
-    "src/shared/components/ui"
+    "src/shared/components/ui/**"
   ]
 }

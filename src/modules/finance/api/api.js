@@ -47,13 +47,13 @@ export function deleteAccount(id) {
 
 // ── Transactions ──────────────────────────────────────────────────────────────
 
-export function fetchTransactions({ month, year, category, is_income, account_id } = {}) {
+export function fetchTransactions({ month, year, category, is_income, account_id } = /** @type {{ month?: number, year?: number, category?: string, is_income?: boolean, account_id?: number }} */({})) {
   const params = new URLSearchParams();
-  if (month != null) params.set("month", month);
-  if (year != null) params.set("year", year);
+  if (month != null) params.set("month", String(month));
+  if (year != null) params.set("year", String(year));
   if (category) params.set("category", category);
-  if (is_income != null) params.set("is_income", is_income);
-  if (account_id != null) params.set("account_id", account_id);
+  if (is_income != null) params.set("is_income", String(is_income));
+  if (account_id != null) params.set("account_id", String(account_id));
   const qs = params.toString();
   return request(`/transactions${qs ? `?${qs}` : ""}`);
 }
@@ -153,28 +153,28 @@ export function deleteAsset(id) {
 
 // ── Aggregations ──────────────────────────────────────────────────────────────
 
-export function fetchSummary({ month, year, account_id } = {}) {
+export function fetchSummary({ month, year, account_id } = /** @type {{ month?: number, year?: number, account_id?: number }} */({})) {
   const params = new URLSearchParams();
-  if (month != null) params.set("month", month);
-  if (year != null) params.set("year", year);
-  if (account_id != null) params.set("account_id", account_id);
+  if (month != null) params.set("month", String(month));
+  if (year != null) params.set("year", String(year));
+  if (account_id != null) params.set("account_id", String(account_id));
   const qs = params.toString();
   return request(`/transactions/summary${qs ? `?${qs}` : ""}`);
 }
 
-export function fetchByCategory({ month, year, account_id } = {}) {
+export function fetchByCategory({ month, year, account_id } = /** @type {{ month?: number, year?: number, account_id?: number }} */({})) {
   const params = new URLSearchParams();
-  if (month != null) params.set("month", month);
-  if (year != null) params.set("year", year);
-  if (account_id != null) params.set("account_id", account_id);
+  if (month != null) params.set("month", String(month));
+  if (year != null) params.set("year", String(year));
+  if (account_id != null) params.set("account_id", String(account_id));
   const qs = params.toString();
   return request(`/transactions/by-category${qs ? `?${qs}` : ""}`);
 }
 
-export function fetchByMonth({ year, account_id } = {}) {
+export function fetchByMonth({ year, account_id } = /** @type {{ year?: number, account_id?: number }} */({})) {
   const params = new URLSearchParams();
-  if (year != null) params.set("year", year);
-  if (account_id != null) params.set("account_id", account_id);
+  if (year != null) params.set("year", String(year));
+  if (account_id != null) params.set("account_id", String(account_id));
   const qs = params.toString();
   return request(`/transactions/by-month${qs ? `?${qs}` : ""}`);
 }

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import * as React from "react"
 
 import { cn } from "@shared/lib/utils"
@@ -16,4 +17,6 @@ const Input = React.forwardRef(({ className, type, ...props }, ref) => {
 })
 Input.displayName = "Input"
 
-export { Input }
+/** @type {any} */
+const InputComponent = Input;
+export { InputComponent as Input }

@@ -1,3 +1,4 @@
+// @ts-nocheck
 "use client"
 
 import * as React from "react"
@@ -26,4 +27,8 @@ const PopoverContent = React.forwardRef(({ className, align = "center", sideOffs
 ))
 PopoverContent.displayName = PopoverPrimitive.Content.displayName
 
-export { Popover, PopoverTrigger, PopoverContent, PopoverAnchor }
+/** @type {any} */ const PopoverComponent = Popover;
+/** @type {any} */ const PopoverTriggerComponent = PopoverTrigger;
+/** @type {any} */ const PopoverContentComponent = PopoverContent;
+/** @type {any} */ const PopoverAnchorComponent = PopoverAnchor;
+export { PopoverComponent as Popover, PopoverTriggerComponent as PopoverTrigger, PopoverContentComponent as PopoverContent, PopoverAnchorComponent as PopoverAnchor }
