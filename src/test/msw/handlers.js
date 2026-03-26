@@ -84,4 +84,45 @@ export const handlers = [
 
   // Assets
   http.get(`${FINANCE}/assets`, () => HttpResponse.json([])),
+  http.post(`${FINANCE}/assets`, () =>
+    HttpResponse.json(
+      {
+        id: 1,
+        name: "Test Asset",
+        value: 5000,
+        category: "vehiculo",
+        is_initial: true,
+        account_id: null,
+        acquisition_date: "2025-01-01",
+      },
+      { status: 201 }
+    )
+  ),
+  http.put(`${FINANCE}/assets/:id`, ({ params }) =>
+    HttpResponse.json({
+      id: Number(params.id),
+      name: "Updated Asset",
+      value: 6000,
+      category: "vehiculo",
+      is_initial: true,
+      account_id: null,
+    })
+  ),
+  http.delete(
+    `${FINANCE}/assets/:id`,
+    () => new HttpResponse(null, { status: 204 })
+  ),
+
+  // Account mutations
+  http.put(`${FINANCE}/accounts/:id`, ({ params }) =>
+    HttpResponse.json({
+      id: Number(params.id),
+      name: "Updated",
+      initial_balance: 0,
+    })
+  ),
+  http.delete(
+    `${FINANCE}/accounts/:id`,
+    () => new HttpResponse(null, { status: 204 })
+  ),
 ];
