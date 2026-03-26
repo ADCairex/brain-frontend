@@ -14,4 +14,15 @@ export default defineConfig({
       '@shell': path.resolve(__dirname, './src/shell'),
     },
   },
+  test: {
+    environment: 'jsdom',
+    globals: true,
+    setupFiles: ['./src/test/setup.js'],
+    coverage: {
+      provider: 'v8',
+      reporter: ['text'],
+      include: ['src/modules/**', 'src/shell/**', 'src/shared/context/**'],
+      exclude: ['src/shared/components/ui/**'],
+    },
+  },
 });
