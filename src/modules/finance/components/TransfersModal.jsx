@@ -24,7 +24,9 @@ import {
 import { toast } from "sonner";
 
 export default function TransfersModal({ open, onClose, accounts }) {
-  const [transfers, setTransfers] = useState([]);
+  const [transfers, setTransfers] = useState(
+    /** @type {Array<{id: number, from_account_id: number|null, to_account_id: number|null, amount: number, date: string, description: string|null}>} */ ([])
+  );
   const [loading, setLoading] = useState(false);
   const [showForm, setShowForm] = useState(false);
   const [saving, setSaving] = useState(false);
@@ -35,7 +37,9 @@ export default function TransfersModal({ open, onClose, accounts }) {
     date: new Date().toISOString().split("T")[0],
     description: "",
   });
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState(
+    /** @type {{from_account_id?: string, to_account_id?: string, amount?: string}} */ ({})
+  );
 
   const loadTransfers = useCallback(async () => {
     setLoading(true);

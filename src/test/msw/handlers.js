@@ -111,6 +111,26 @@ export const handlers = [
     () => new HttpResponse(null, { status: 204 })
   ),
 
+  // Transfers
+  http.get(`${FINANCE}/transfers`, () => HttpResponse.json([])),
+  http.post(`${FINANCE}/transfers`, () =>
+    HttpResponse.json(
+      {
+        id: 1,
+        from_account_id: 1,
+        to_account_id: 2,
+        amount: 100,
+        date: "2025-01-01",
+        description: null,
+      },
+      { status: 201 }
+    )
+  ),
+  http.delete(
+    `${FINANCE}/transfers/:id`,
+    () => new HttpResponse(null, { status: 204 })
+  ),
+
   // Account mutations
   http.put(`${FINANCE}/accounts/:id`, ({ params }) =>
     HttpResponse.json({
