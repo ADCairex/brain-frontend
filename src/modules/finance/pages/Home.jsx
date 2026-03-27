@@ -21,6 +21,7 @@ import {
   Landmark,
   Eye,
   EyeOff,
+  ArrowLeftRight,
 } from "lucide-react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { useSearchParams } from "react-router-dom";
@@ -32,6 +33,7 @@ import ExpenseChart from "@finance/components/ExpenseChart";
 import MonthlyChart from "@finance/components/MonthlyChart";
 import AddExpenseModal from "@finance/components/AddExpenseModal";
 import AccountsModal from "@finance/components/AccountsModal";
+import TransfersModal from "@finance/components/TransfersModal";
 import InvestmentsSection from "@finance/components/InvestmentsSection";
 import {
   fetchTransactions,
@@ -91,6 +93,7 @@ export default function Finance() {
   );
   const [showModal, setShowModal] = useState(false);
   const [showAccountsModal, setShowAccountsModal] = useState(false);
+  const [showTransfersModal, setShowTransfersModal] = useState(false);
   const [hideAmounts, setHideAmounts] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("todas");
   const [pageLimit, setPageLimit] = useState(10);
@@ -378,8 +381,16 @@ export default function Finance() {
             Inversiones
           </button>
           <button
-            onClick={() => setShowAccountsModal(true)}
+            onClick={() => setShowTransfersModal(true)}
             className="shrink-0 ml-auto p-2 rounded-full bg-white dark:bg-slate-700/80 border border-slate-200 dark:border-slate-600 text-slate-500 dark:text-slate-300 hover:border-slate-400 dark:hover:border-slate-400 transition-colors"
+            aria-label="Transferencias"
+            title="Transferencias"
+          >
+            <ArrowLeftRight className="w-4 h-4" aria-hidden="true" />
+          </button>
+          <button
+            onClick={() => setShowAccountsModal(true)}
+            className="shrink-0 p-2 rounded-full bg-white dark:bg-slate-700/80 border border-slate-200 dark:border-slate-600 text-slate-500 dark:text-slate-300 hover:border-slate-400 dark:hover:border-slate-400 transition-colors"
             aria-label="Configuración inicial"
           >
             <Landmark className="w-4 h-4" aria-hidden="true" />
@@ -877,6 +888,13 @@ export default function Finance() {
           loadAccounts();
           loadData();
         }}
+      />
+
+      {/* Transfers Modal */}
+      <TransfersModal
+        open={showTransfersModal}
+        onClose={() => setShowTransfersModal(false)}
+        accounts={accounts}
       />
     </div>
   );
