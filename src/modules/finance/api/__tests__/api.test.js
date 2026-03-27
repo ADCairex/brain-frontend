@@ -183,7 +183,6 @@ describe("finance api", () => {
           total_income: 0,
           total_expenses: 0,
           balance: 0,
-          balance_with_investments: 0,
           count: 0,
         });
       })
