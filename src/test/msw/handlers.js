@@ -28,11 +28,9 @@ export const handlers = [
       total_expenses: 0,
       total_invested: 0,
       total_investments_initial: 0,
-      total_assets_initial: 0,
       total_assets_acquired: 0,
       initial_balance: 0,
       balance: 0,
-      balance_with_investments: 0,
       count: 0,
     })
   ),
@@ -110,6 +108,26 @@ export const handlers = [
   ),
   http.delete(
     `${FINANCE}/assets/:id`,
+    () => new HttpResponse(null, { status: 204 })
+  ),
+
+  // Transfers
+  http.get(`${FINANCE}/transfers`, () => HttpResponse.json([])),
+  http.post(`${FINANCE}/transfers`, () =>
+    HttpResponse.json(
+      {
+        id: 1,
+        from_account_id: 1,
+        to_account_id: 2,
+        amount: 100,
+        date: "2025-01-01",
+        description: null,
+      },
+      { status: 201 }
+    )
+  ),
+  http.delete(
+    `${FINANCE}/transfers/:id`,
     () => new HttpResponse(null, { status: 204 })
   ),
 
