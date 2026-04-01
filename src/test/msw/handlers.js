@@ -154,6 +154,13 @@ export const handlers = [
       { status: 201 }
     )
   ),
+  http.put(`${FINANCE}/transactions/:id`, async ({ params, request }) => {
+    const body = await request.json();
+    return HttpResponse.json({
+      id: Number(params.id),
+      ...body,
+    });
+  }),
 
   // Investments
   http.get(`${FINANCE}/investments`, () => HttpResponse.json([])),

@@ -84,4 +84,26 @@ describe("TransactionItem", () => {
       screen.queryByLabelText(/confirmar eliminación/i)
     ).not.toBeInTheDocument();
   });
+
+  it("does not render edit button when onEdit is not provided", () => {
+    renderItem();
+    expect(
+      screen.queryByLabelText(/editar supermercado/i)
+    ).not.toBeInTheDocument();
+  });
+
+  it("renders edit button when onEdit is provided", () => {
+    renderItem({ onEdit: vi.fn() });
+    expect(screen.getByLabelText(/editar supermercado/i)).toBeInTheDocument();
+  });
+
+  it("calls onEdit when edit button is clicked", async () => {
+    const user = userEvent.setup();
+    const onEdit = vi.fn();
+    renderItem({ onEdit });
+
+    await user.click(screen.getByLabelText(/editar supermercado/i));
+
+    expect(onEdit).toHaveBeenCalledOnce();
+  });
 });
