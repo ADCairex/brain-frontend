@@ -13,8 +13,6 @@ import {
   TrendingUp,
   TrendingDown,
   Plus,
-  Search,
-  Bell,
   ArrowUpRight,
   ArrowDownRight,
   Loader2,
@@ -296,32 +294,6 @@ export default function Finance() {
                     aria-hidden="true"
                   />
                 )}
-              </Button>
-              <Button
-                variant="ghost"
-                size="icon"
-                className="rounded-xl"
-                aria-label="Buscar"
-              >
-                <Search
-                  className="w-5 h-5 text-slate-500 dark:text-slate-300"
-                  aria-hidden="true"
-                />
-              </Button>
-              <Button
-                variant="ghost"
-                size="icon"
-                className="rounded-xl relative"
-                aria-label="Notificaciones"
-              >
-                <Bell
-                  className="w-5 h-5 text-slate-500 dark:text-slate-300"
-                  aria-hidden="true"
-                />
-                <span
-                  className="absolute top-2 right-2 w-2 h-2 bg-rose-500 rounded-full"
-                  aria-hidden="true"
-                ></span>
               </Button>
               <div
                 className="w-9 h-9 rounded-xl bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center text-white font-medium text-sm ml-2"

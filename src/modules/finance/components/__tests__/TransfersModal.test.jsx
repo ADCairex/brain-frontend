@@ -190,6 +190,6 @@ describe("TransfersModal", () => {
 
     expect(window.confirm).toHaveBeenCalled();
     // transfer still visible
-    expect(screen.queryByText("$100")).not.toBeNull();
+    expect(screen.queryByText("100 €")).not.toBeNull();
   });
 });
