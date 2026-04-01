@@ -283,7 +283,7 @@ export default function TransfersModal({ open, onClose, accounts }) {
               </div>
               <div className="flex items-center gap-3">
                 <span className="font-semibold">
-                  ${t.amount.toLocaleString()}
+                  {t.amount.toLocaleString("es-ES")} €
                 </span>
                 <span className="text-xs text-muted-foreground">{t.date}</span>
                 <Button

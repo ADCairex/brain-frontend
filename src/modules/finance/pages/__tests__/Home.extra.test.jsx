@@ -164,6 +164,22 @@ describe("Finance page – extra", () => {
     );
   });
 
+  it("does not render search or notification buttons", async () => {
+    renderPage();
+    await waitFor(() =>
+      expect(
+        screen.queryByRole("status", { name: "Cargando transacciones…" })
+      ).not.toBeInTheDocument()
+    );
+
+    expect(
+      screen.queryByRole("button", { name: "Buscar" })
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole("button", { name: "Notificaciones" })
+    ).not.toBeInTheDocument();
+  });
+
   it("cancels account edit and form disappears", async () => {
     const user = userEvent.setup();
     renderPage();
