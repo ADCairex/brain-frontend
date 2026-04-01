@@ -33,18 +33,19 @@ const RECURRENCE_OPTIONS = [
   { value: "yearly", label: "Cada año" },
 ];
 
+/** @type {import('zod').ZodObject<any>} */
 const schema = z
   .object({
     title: z.string().min(1, "El título es obligatorio").max(255),
-    description: z.string().optional().default(""),
+    description: z.string().default(""),
     start_date: z.string().min(1, "La fecha de inicio es obligatoria"),
-    start_time: z.string().optional().default("09:00"),
-    end_date: z.string().optional().default(""),
-    end_time: z.string().optional().default(""),
+    start_time: z.string().default("09:00"),
+    end_date: z.string().default(""),
+    end_time: z.string().default(""),
     all_day: z.boolean().default(false),
-    color: z.string().optional().default(""),
-    location: z.string().max(255).optional().default(""),
-    recurrence_preset: z.string().optional().default(""),
+    color: z.string().default(""),
+    location: z.string().max(255).default(""),
+    recurrence_preset: z.string().default(""),
   })
   .refine(
     (data) => {
