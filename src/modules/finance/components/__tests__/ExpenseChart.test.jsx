@@ -1,24 +1,33 @@
-import { render, screen } from '@testing-library/react'
-import { describe, it, expect } from 'vitest'
-import ExpenseChart from '@finance/components/ExpenseChart'
+import { render, screen } from "@testing-library/react";
+import { describe, it, expect } from "vitest";
+import ExpenseChart from "@finance/components/ExpenseChart";
+import { CategoryProvider } from "@finance/context/CategoryContext";
 
-describe('ExpenseChart', () => {
-  it('renders the section heading', () => {
-    render(<ExpenseChart />)
-    expect(screen.getByText('Gastos por Categoría')).toBeInTheDocument()
-  })
+function renderChart(props = {}) {
+  return render(
+    <CategoryProvider>
+      <ExpenseChart {...props} />
+    </CategoryProvider>
+  );
+}
 
-  it('renders without crashing when data is empty', () => {
-    render(<ExpenseChart data={[]} />)
-    expect(screen.getByText('Gastos por Categoría')).toBeInTheDocument()
-  })
+describe("ExpenseChart", () => {
+  it("renders the section heading", () => {
+    renderChart();
+    expect(screen.getByText("Gastos por Categoría")).toBeInTheDocument();
+  });
 
-  it('renders without crashing when data is provided', () => {
+  it("renders without crashing when data is empty", () => {
+    renderChart({ data: [] });
+    expect(screen.getByText("Gastos por Categoría")).toBeInTheDocument();
+  });
+
+  it("renders without crashing when data is provided", () => {
     const data = [
-      { category: 'comida', total: 300 },
-      { category: 'transporte', total: 150 },
-    ]
-    render(<ExpenseChart data={data} />)
-    expect(screen.getByText('Gastos por Categoría')).toBeInTheDocument()
-  })
-})
+      { category: "comida", total: 300 },
+      { category: "transporte", total: 150 },
+    ];
+    renderChart({ data });
+    expect(screen.getByText("Gastos por Categoría")).toBeInTheDocument();
+  });
+});
