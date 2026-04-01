@@ -17,6 +17,30 @@ async function request(path, options = {}) {
   return res.json();
 }
 
+// ── Categories ───────────────────────────────────────────────────────────────
+
+export function fetchCategories() {
+  return request("/categories");
+}
+
+export function createCategory(data) {
+  return request("/categories", {
+    method: "POST",
+    body: JSON.stringify(data),
+  });
+}
+
+export function updateCategory(id, data) {
+  return request(`/categories/${id}`, {
+    method: "PUT",
+    body: JSON.stringify(data),
+  });
+}
+
+export function deleteCategory(id) {
+  return request(`/categories/${id}`, { method: "DELETE" });
+}
+
 // ── Accounts ─────────────────────────────────────────────────────────────────
 
 export function fetchAccounts() {

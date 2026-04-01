@@ -20,6 +20,7 @@ import {
   Eye,
   EyeOff,
   ArrowLeftRight,
+  Tags,
 } from "lucide-react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { useSearchParams } from "react-router-dom";
@@ -31,6 +32,7 @@ import ExpenseChart from "@finance/components/ExpenseChart";
 import MonthlyChart from "@finance/components/MonthlyChart";
 import AddExpenseModal from "@finance/components/AddExpenseModal";
 import AccountsModal from "@finance/components/AccountsModal";
+import CategoryManager from "@finance/components/CategoryManager";
 import TransfersModal from "@finance/components/TransfersModal";
 import InvestmentsSection from "@finance/components/InvestmentsSection";
 import {
@@ -92,6 +94,7 @@ export default function Finance() {
   const [showModal, setShowModal] = useState(false);
   const [showAccountsModal, setShowAccountsModal] = useState(false);
   const [showTransfersModal, setShowTransfersModal] = useState(false);
+  const [showCategoryManager, setShowCategoryManager] = useState(false);
   const [hideAmounts, setHideAmounts] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("todas");
   const [pageLimit, setPageLimit] = useState(10);
@@ -359,6 +362,14 @@ export default function Finance() {
             title="Transferencias"
           >
             <ArrowLeftRight className="w-4 h-4" aria-hidden="true" />
+          </button>
+          <button
+            onClick={() => setShowCategoryManager(true)}
+            className="shrink-0 p-2 rounded-full bg-white dark:bg-slate-700/80 border border-slate-200 dark:border-slate-600 text-slate-500 dark:text-slate-300 hover:border-slate-400 dark:hover:border-slate-400 transition-colors"
+            aria-label="Categorías"
+            title="Categorías"
+          >
+            <Tags className="w-4 h-4" aria-hidden="true" />
           </button>
           <button
             onClick={() => setShowAccountsModal(true)}
@@ -860,6 +871,12 @@ export default function Finance() {
           loadAccounts();
           loadData();
         }}
+      />
+
+      {/* Category Manager */}
+      <CategoryManager
+        open={showCategoryManager}
+        onClose={() => setShowCategoryManager(false)}
       />
 
       {/* Transfers Modal */}

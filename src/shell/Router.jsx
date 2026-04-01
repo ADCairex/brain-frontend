@@ -1,12 +1,13 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { Toaster } from '@shared/components/ui/toaster';
-import { AuthProvider } from '@shared/context/AuthContext';
-import Finance from '@finance/pages/Home';
-import HomePage from './HomePage';
-import LoginPage from '@/modules/auth/pages/Login';
-import ProtectedRoute from './ProtectedRoute';
-import PageNotFound from '@shared/lib/PageNotFound';
-import Layout from './Layout';
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { Toaster } from "@shared/components/ui/toaster";
+import { AuthProvider } from "@shared/context/AuthContext";
+import { CategoryProvider } from "@finance/context/CategoryContext";
+import Finance from "@finance/pages/Home";
+import HomePage from "./HomePage";
+import LoginPage from "@/modules/auth/pages/Login";
+import ProtectedRoute from "./ProtectedRoute";
+import PageNotFound from "@shared/lib/PageNotFound";
+import Layout from "./Layout";
 
 function App() {
   return (
@@ -18,7 +19,9 @@ function App() {
             path="/"
             element={
               <ProtectedRoute>
-                <Layout><HomePage /></Layout>
+                <Layout>
+                  <HomePage />
+                </Layout>
               </ProtectedRoute>
             }
           />
@@ -26,7 +29,11 @@ function App() {
             path="/finance"
             element={
               <ProtectedRoute>
-                <Layout><Finance /></Layout>
+                <CategoryProvider>
+                  <Layout>
+                    <Finance />
+                  </Layout>
+                </CategoryProvider>
               </ProtectedRoute>
             }
           />

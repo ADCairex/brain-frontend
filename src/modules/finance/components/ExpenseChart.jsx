@@ -7,17 +7,8 @@ import {
   Legend,
   Tooltip,
 } from "recharts";
+import { useCategories } from "@finance/context/CategoryContext";
 
-const CATEGORY_COLORS = {
-  comida: "#f97316",
-  transporte: "#3b82f6",
-  entretenimiento: "#a855f7",
-  servicios: "#06b6d4",
-  compras: "#ec4899",
-  salud: "#22c55e",
-  educacion: "#eab308",
-  otros: "#64748b",
-};
 const COLOR_FALLBACK = "#94a3b8";
 
 const fallbackData = [
@@ -37,6 +28,7 @@ const fmtEur = (n) =>
   }).format(n);
 
 export default function ExpenseChart({ data: propData, hideAmounts = false }) {
+  const { getCategoryByName } = useCategories();
   const data = propData && propData.length > 0 ? propData : fallbackData;
   return (
     <div className="bg-white dark:bg-slate-700/60 rounded-2xl p-6 border border-slate-100 dark:border-slate-600 shadow-sm h-full">
@@ -59,7 +51,9 @@ export default function ExpenseChart({ data: propData, hideAmounts = false }) {
               {data.map((entry, index) => (
                 <Cell
                   key={`cell-${index}`}
-                  fill={CATEGORY_COLORS[entry.category] ?? COLOR_FALLBACK}
+                  fill={
+                    getCategoryByName(entry.category).color || COLOR_FALLBACK
+                  }
                 />
               ))}
             </Pie>

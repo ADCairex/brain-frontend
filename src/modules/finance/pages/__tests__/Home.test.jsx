@@ -4,13 +4,16 @@ import { describe, it, expect } from "vitest";
 import { MemoryRouter } from "react-router-dom";
 import { http, HttpResponse } from "msw";
 import { server } from "@/test/msw/server";
+import { CategoryProvider } from "@finance/context/CategoryContext";
 import Finance from "@finance/pages/Home";
 
 function renderPage() {
   render(
-    <MemoryRouter>
-      <Finance />
-    </MemoryRouter>
+    <CategoryProvider>
+      <MemoryRouter>
+        <Finance />
+      </MemoryRouter>
+    </CategoryProvider>
   );
 }
 

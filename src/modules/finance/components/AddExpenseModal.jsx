@@ -28,17 +28,7 @@ import { format } from "date-fns";
 import { es } from "date-fns/locale";
 import { cn } from "@shared/lib/utils";
 import { createTransaction } from "@finance/api/api";
-
-const categories = [
-  { value: "comida", label: "🍔 Comida" },
-  { value: "transporte", label: "🚗 Transporte" },
-  { value: "entretenimiento", label: "🎬 Entretenimiento" },
-  { value: "salud", label: "💊 Salud" },
-  { value: "compras", label: "🛍️ Compras" },
-  { value: "servicios", label: "📱 Servicios" },
-  { value: "educacion", label: "📚 Educación" },
-  { value: "otros", label: "📦 Otros" },
-];
+import { useCategories } from "@finance/context/CategoryContext";
 
 export default function AddExpenseModal({
   open,
@@ -47,6 +37,7 @@ export default function AddExpenseModal({
   accounts = /** @type {Array<{id: number, name: string, initial_balance: number}>} */ ([]),
   defaultAccountId = /** @type {number | null} */ (null),
 }) {
+  const { expenseCategories } = useCategories();
   const [isIncome, setIsIncome] = useState(false);
   const [date, setDate] = useState(new Date());
   const [amount, setAmount] = useState("");
@@ -211,9 +202,9 @@ export default function AddExpenseModal({
                   <SelectValue placeholder="Seleccionar categoría" />
                 </SelectTrigger>
                 <SelectContent>
-                  {categories.map((cat) => (
-                    <SelectItem key={cat.value} value={cat.value}>
-                      {cat.label}
+                  {expenseCategories.map((cat) => (
+                    <SelectItem key={cat.name} value={cat.name}>
+                      {cat.emoji} {cat.label}
                     </SelectItem>
                   ))}
                 </SelectContent>
