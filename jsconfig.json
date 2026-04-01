@@ -3,6 +3,7 @@
     "paths": {
       "@/*": ["./src/*"],
       "@finance/*": ["./src/modules/finance/*"],
+      "@calendar/*": ["./src/modules/calendar/*"],
       "@shared/*": ["./src/shared/*"],
       "@shell/*": ["./src/shell/*"]
     },

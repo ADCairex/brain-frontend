@@ -3,6 +3,7 @@ import { Toaster } from "@shared/components/ui/toaster";
 import { AuthProvider } from "@shared/context/AuthContext";
 import { CategoryProvider } from "@finance/context/CategoryContext";
 import Finance from "@finance/pages/Home";
+import CalendarPage from "@calendar/pages/CalendarPage";
 import HomePage from "./HomePage";
 import LoginPage from "@/modules/auth/pages/Login";
 import ProtectedRoute from "./ProtectedRoute";
@@ -34,6 +35,16 @@ function App() {
                     <Finance />
                   </Layout>
                 </CategoryProvider>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/calendar"
+            element={
+              <ProtectedRoute>
+                <Layout>
+                  <CalendarPage />
+                </Layout>
               </ProtectedRoute>
             }
           />
