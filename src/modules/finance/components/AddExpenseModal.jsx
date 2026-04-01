@@ -27,7 +27,7 @@ import { CalendarIcon, Loader2 } from "lucide-react";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
 import { cn } from "@shared/lib/utils";
-import { createTransaction } from "@finance/api/api";
+import { createTransaction, updateTransaction } from "@finance/api/api";
 import { useCategories } from "@finance/context/CategoryContext";
 
 export default function AddExpenseModal({
@@ -36,7 +36,11 @@ export default function AddExpenseModal({
   onSaved,
   accounts = /** @type {Array<{id: number, name: string, initial_balance: number}>} */ ([]),
   defaultAccountId = /** @type {number | null} */ (null),
+  transaction = /** @type {{ id: number, description: string, amount: number, category: string, date: string, is_income: boolean, notes?: string, account_id?: number } | null} */ (
+    null
+  ),
 }) {
+  const isEditing = transaction != null;
   const { expenseCategories } = useCategories();
   const [isIncome, setIsIncome] = useState(false);
   const [date, setDate] = useState(new Date());
@@ -53,6 +57,20 @@ export default function AddExpenseModal({
   const [fieldErrors, setFieldErrors] = useState(
     /** @type {{ [key: string]: string }} */ ({})
   );
+
+  React.useEffect(() => {
+    if (open && transaction) {
+      setIsIncome(transaction.is_income);
+      setAmount(String(transaction.amount));
+      setDescription(transaction.description);
+      setCategory(transaction.is_income ? "" : transaction.category || "");
+      setDate(new Date(transaction.date));
+      setAccountId(
+        transaction.account_id ? String(transaction.account_id) : ""
+      );
+      setNotes(transaction.notes || "");
+    }
+  }, [open, transaction]);
 
   const resetForm = () => {
     setIsIncome(false);
@@ -81,7 +99,7 @@ export default function AddExpenseModal({
 
     setSaving(true);
     try {
-      await createTransaction({
+      const payload = {
         description: description.trim(),
         amount: parseFloat(amount),
         category: isIncome ? "ingreso" : category,
@@ -89,7 +107,12 @@ export default function AddExpenseModal({
         is_income: isIncome,
         notes: notes.trim() || null,
         account_id: accountId ? parseInt(accountId, 10) : null,
-      });
+      };
+      if (isEditing) {
+        await updateTransaction(transaction.id, payload);
+      } else {
+        await createTransaction(payload);
+      }
       resetForm();
       onSaved?.();
     } catch (err) {
@@ -109,7 +132,11 @@ export default function AddExpenseModal({
       <DialogContent className="sm:max-w-md overscroll-contain">
         <DialogHeader>
           <DialogTitle className="text-xl font-bold text-slate-900 dark:text-white">
-            {isIncome ? "Nuevo Ingreso" : "Nuevo Gasto"}
+            {isEditing
+              ? "Editar Transacción"
+              : isIncome
+                ? "Nuevo Ingreso"
+                : "Nuevo Gasto"}
           </DialogTitle>
         </DialogHeader>
 
@@ -338,9 +365,11 @@ export default function AddExpenseModal({
             ) : null}
             {saving
               ? "Guardando…"
-              : isIncome
-                ? "Guardar Ingreso"
-                : "Guardar Gasto"}
+              : isEditing
+                ? "Guardar Cambios"
+                : isIncome
+                  ? "Guardar Ingreso"
+                  : "Guardar Gasto"}
           </Button>
         </div>
       </DialogContent>

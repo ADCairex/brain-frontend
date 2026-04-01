@@ -109,4 +109,64 @@ describe("AddExpenseModal", () => {
 
     await waitFor(() => expect(onSaved).toHaveBeenCalled());
   });
+
+  describe("edit mode", () => {
+    const editTransaction = {
+      id: 42,
+      description: "Supermercado",
+      amount: 150,
+      category: "comida",
+      date: "2025-06-15",
+      is_income: false,
+      notes: "compra semanal",
+      account_id: 1,
+    };
+
+    it("shows edit title when transaction is provided", () => {
+      renderModal({ transaction: editTransaction });
+      expect(screen.getByText("Editar Transacción")).toBeInTheDocument();
+    });
+
+    it("prefills form fields with transaction data", () => {
+      renderModal({ transaction: editTransaction });
+      expect(screen.getByLabelText("Monto")).toHaveValue(150);
+      expect(screen.getByLabelText("Descripción")).toHaveValue("Supermercado");
+      expect(screen.getByLabelText("Notas (opcional)")).toHaveValue(
+        "compra semanal"
+      );
+    });
+
+    it("shows 'Guardar Cambios' button in edit mode", () => {
+      renderModal({ transaction: editTransaction });
+      expect(screen.getByText("Guardar Cambios")).toBeInTheDocument();
+    });
+
+    it("calls PUT endpoint and onSaved when saving edits", async () => {
+      const user = userEvent.setup();
+      renderModal({ transaction: editTransaction });
+
+      await user.clear(screen.getByLabelText("Descripción"));
+      await user.type(screen.getByLabelText("Descripción"), "Mercadona");
+      await user.click(screen.getByText("Guardar Cambios"));
+
+      await waitFor(() => expect(onSaved).toHaveBeenCalled());
+    });
+
+    it("shows API error when edit fails", async () => {
+      server.use(
+        http.put("http://localhost:8000/finance/api/transactions/:id", () =>
+          HttpResponse.json({ detail: "No encontrado" }, { status: 404 })
+        )
+      );
+
+      const user = userEvent.setup();
+      renderModal({ transaction: editTransaction });
+
+      await user.click(screen.getByText("Guardar Cambios"));
+
+      await waitFor(() => {
+        expect(screen.getByRole("alert")).toHaveTextContent("No encontrado");
+      });
+    });
+  });
 });

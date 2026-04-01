@@ -92,6 +92,7 @@ export default function Finance() {
     /** @type {Array<{id: number, name: string, initial_balance: number}>} */ ([])
   );
   const [showModal, setShowModal] = useState(false);
+  const [editingTransaction, setEditingTransaction] = useState(null);
   const [showAccountsModal, setShowAccountsModal] = useState(false);
   const [showTransfersModal, setShowTransfersModal] = useState(false);
   const [showCategoryManager, setShowCategoryManager] = useState(false);
@@ -810,6 +811,7 @@ export default function Finance() {
                       <TransactionItem
                         {...transaction}
                         isIncome={transaction.is_income}
+                        onEdit={() => setEditingTransaction(transaction)}
                         onDelete={() => handleDelete(transaction.id)}
                         hideAmount={hideAmounts}
                       />
@@ -861,6 +863,18 @@ export default function Finance() {
         }}
         accounts={accounts}
         defaultAccountId={selectedAccountId}
+      />
+
+      {/* Edit Transaction Modal */}
+      <AddExpenseModal
+        open={editingTransaction != null}
+        onClose={() => setEditingTransaction(null)}
+        onSaved={() => {
+          setEditingTransaction(null);
+          loadData();
+        }}
+        accounts={accounts}
+        transaction={editingTransaction}
       />
 
       {/* Accounts Modal */}

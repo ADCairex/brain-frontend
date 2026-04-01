@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { cn } from "@shared/lib/utils";
-import { Trash2 } from "lucide-react";
+import { Pencil, Trash2 } from "lucide-react";
 import { format, isToday, isYesterday } from "date-fns";
 import { es } from "date-fns/locale";
 import { useCategories } from "@finance/context/CategoryContext";
@@ -22,6 +22,7 @@ export default function TransactionItem({
   category,
   date,
   isIncome,
+  onEdit,
   onDelete,
   hideAmount = false,
 }) {
@@ -74,9 +75,9 @@ export default function TransactionItem({
           : `${isIncome ? "+" : "-"}${amount.toLocaleString("es-ES")} €`}
       </p>
 
-      {onDelete &&
-        (confirming ? (
-          <div className="flex items-center gap-1 opacity-100">
+      <div className="flex items-center gap-1">
+        {confirming ? (
+          <>
             <button
               onClick={handleDeleteClick}
               className="px-2 py-1 rounded-lg bg-rose-500 text-white text-xs font-medium hover:bg-rose-600 transition-colors"
@@ -91,16 +92,33 @@ export default function TransactionItem({
             >
               Cancelar
             </button>
-          </div>
+          </>
         ) : (
-          <button
-            onClick={handleDeleteClick}
-            className="opacity-0 group-hover:opacity-100 transition-opacity p-2 rounded-lg hover:bg-rose-50 dark:hover:bg-rose-500/10 text-rose-500"
-            aria-label={`Eliminar ${description}`}
-          >
-            <Trash2 className="w-4 h-4" aria-hidden="true" />
-          </button>
-        ))}
+          <>
+            {onEdit && (
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onEdit();
+                }}
+                className="opacity-0 group-hover:opacity-100 transition-opacity p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-600/50 text-slate-500 dark:text-slate-400"
+                aria-label={`Editar ${description}`}
+              >
+                <Pencil className="w-4 h-4" aria-hidden="true" />
+              </button>
+            )}
+            {onDelete && (
+              <button
+                onClick={handleDeleteClick}
+                className="opacity-0 group-hover:opacity-100 transition-opacity p-2 rounded-lg hover:bg-rose-50 dark:hover:bg-rose-500/10 text-rose-500"
+                aria-label={`Eliminar ${description}`}
+              >
+                <Trash2 className="w-4 h-4" aria-hidden="true" />
+              </button>
+            )}
+          </>
+        )}
+      </div>
     </div>
   );
 }
